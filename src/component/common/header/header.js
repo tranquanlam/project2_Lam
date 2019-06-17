@@ -11,7 +11,6 @@ class header extends Component {
         this.props.RedirecCard()
     }
     render() {
-       
         return (
             <header>
                     <div className="action " >

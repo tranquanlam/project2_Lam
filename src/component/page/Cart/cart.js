@@ -4,7 +4,6 @@ import ProductCart from './element/productCart'
 class cart extends Component {
     render() {
         return (
-
             <div className="container-tableBK">
                 <div className="addressLocal"><a className="addressLocal__a" href="/">Home</a><a className="addressLocal__a1" href="/">/Giỏ Hàng</a></div>
                 <div className="title">

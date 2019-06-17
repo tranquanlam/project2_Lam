@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import HighlighPro from '../home/element/highlightsPro'
 import SaleProduct from '../home/element/salePro'
 import Redirect from 'react-router-dom/Redirect'
+import { saveListCartDetail} from '../../../store/action/action'
 
 
 class home extends Component {
@@ -13,6 +14,7 @@ class home extends Component {
             ToYesNo: false
         }
     }
+ 
     render() {
         if(this.props.listproHot.ToYesNoCart === true){
             return <Redirect to="/cart"></Redirect>
@@ -273,4 +275,14 @@ class home extends Component {
 const mapStateToProps = (state) => {
     return { listproHot: state.ProductReducer }
 }
-export default connect(mapStateToProps)(home)
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        saveListCartDetail :() =>{
+            dispatch(saveListCartDetail())
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(home)

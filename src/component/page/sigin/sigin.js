@@ -28,10 +28,10 @@ class sigin extends Component {
         event.preventDefault();
     
         const product = {
-            email: this.state.txtname,
+            email: this.state.txtemail,
             password: this.state.txtpassword,
             name: this.state.txtname,
-            phone: this.state.txtname,
+            phone: this.state.txtphone,
             address: this.state.txtaddress
         };
         

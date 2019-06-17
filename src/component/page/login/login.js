@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Redirect from 'react-router-dom/Redirect'
 import axios from 'axios'
 import { connect } from 'react-redux';
-import {savelogin} from '../../../store/action/action'
+import { savelogin, saveListCart, saveListCartDetail } from '../../../store/action/action'
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class login extends Component {
@@ -12,6 +12,8 @@ class login extends Component {
             txtemail: '',
             txtpassword: '',
             listPro: [],
+            listCart: [],
+            listCartDetail :[],
             isRedirect: false
         }
         this.handleChange = this.handleChange.bind(this);
@@ -33,27 +35,63 @@ class login extends Component {
                 const listPro = res.data;
                 this.setState({ listPro });
             })
-    }
-    handleSubmit = (event) => {
-        console.log("lan 1")
-     
-       this.state.listPro.forEach(value => {
-           if(value.email === this.state.txtemail){
-            this.setState({
-                isRedirect: true
+        axios.get(`http://5d08a7b5034e5000140106c4.mockapi.io/api/cart`)
+            .then(res => {
+                const listCart = res.data;
+                this.setState({ listCart });
             })
-            this.props.saveLogin(value.email);
-           }
-       }); 
-      
+        axios.get(`http://5d08a7b5034e5000140106c4.mockapi.io/api/cartDetail`)
+            .then(res => {
+                const listCartDetail = res.data;
+                this.setState({ listCartDetail });
+            })
+    }
+    handleSubmit = () => {
+        //khai bao user id cho viec kiem tra co gio hang hay k
+        var idUser = 0;
+        //check login
+        this.state.listPro.forEach(value => {
+            if (value.email === this.state.txtemail) {
+                idUser = value.id
+                this.setState({
+                    isRedirect: true
+                })
+                this.props.saveLogin(value.name, value.id);
+            }
+        });
+        //kiem tra xem user co cart hay chua
+        var checkCart = true
+        this.state.listCart.forEach(element => {
+            if (element.idUser === idUser) {
+                checkCart = false
+            }
+        });
+        //đổ list cart vào store redux
+        this.props.saveListCart(this.state.listCart)
+        //đổ listcartDetail lên redux
+        this.props.savelistcartdetail(this.state.listCartDetail);
+        //neu chua co thi tao doi tuong && them vao API
+        if (checkCart === true) {
+            const cart = {
+                idUser: idUser
+            }
+            axios.post(`http://5d08a7b5034e5000140106c4.mockapi.io/api/cart`, { ...cart })
+                .then(res => {
+                })
+        }
+        //dang nhap vao localstore neu chua co
+        if (localStorage.getItem(`${idUser}`) == null) {
+            var b = [];
+            localStorage.setItem(`${idUser}`, JSON.stringify(b));
+        }
     }
     render() {
         if (this.state.isRedirect === true) {
             return <Redirect
-            to={{
-              pathname: "/",
-            }}
-          />
+                to={{
+                    pathname: "/",
+                }}
+            />
         }
         return (
             <div className="containerLogin">
@@ -86,13 +124,22 @@ class login extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return { dbPro: state.AcountReducer }
+    return {
+        dbPro: state.AcountReducer,
+        dbCart: state.ProductReducer
+    }
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
     return {
-        saveLogin : (email) =>{
-            dispatch(savelogin(email))
+        saveLogin: (name, id) => {
+            dispatch(savelogin(name, id))
+        },
+        saveListCart: (listCart) => {
+            dispatch(saveListCart(listCart))
+        },
+        savelistcartdetail: (listCardDetail) => {
+            dispatch(saveListCartDetail(listCardDetail))
         }
     }
 }

@@ -15,10 +15,12 @@ class decriptionPro extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     async componentDidMount() {
+        //lấy danh sách product
         let data = await axios.get('http://5d08a7b5034e5000140106c4.mockapi.io/api/products')
             .then(function (response) {
                 return response.data
             })
+        //lấy sản phẩm và loại sản phẩm show lên detail
         data.forEach(element => {
             if (element.id === this.props.listproHot.id) {
                 this.setState({
@@ -27,6 +29,7 @@ class decriptionPro extends Component {
                 })
             }
         });
+        //tìm những sản phẩm có cùng category
         data.forEach(element => {
             if (element.catagory === this.state.category) {
                 this.setState({
@@ -45,7 +48,6 @@ class decriptionPro extends Component {
         });
     }
     addProduct = (id) => {
-        console.log(id);
         let numb = this.state.txtNo + 1;
         this.setState({
             txtNo: numb
@@ -53,15 +55,59 @@ class decriptionPro extends Component {
     }
     reductionProduct = (id) => {
         if (this.state.txtNo > 0) {
-            console.log(id);
             let numb = this.state.txtNo - 1;
             this.setState({
                 txtNo: numb
             })
         }
     }
-    addCart = (id) =>{
-        
+    addCart = (id) => {
+        //Neu login thi moi cho them du lieu vao cart Detail
+        if (this.props.acountReducer.name !== "") {
+
+
+
+
+            //XỬ LÝ TRÊN API VỚI GIỎ HÀNG        
+            //lay id card trong store để mua them sản phẩm
+            let idcart
+            this.props.listproHot.listCardUser.forEach(element => {
+                if (element.idUser === this.props.acountReducer.id) {
+                    idcart = element.idCart
+                }
+            });
+            // neu id card và id pro đã có trong API thì chỉ cần cộng thêm vào ( to action redux)
+            var cartDetailItem
+            var idDetail
+            var isHas = true
+            this.props.listproHot.listCardDetail.forEach(element => {
+                if (element.idCard === idcart && element.idProduct === id) {
+                    cartDetailItem = {
+                        idCard: idcart,
+                        idProduct: id,
+                        Price: this.state.productD.price,
+                        Amount: this.state.txtNo,
+                        Sum: (this.state.txtNo * this.state.productD.price)
+                    }
+                    idDetail = element.id
+                    isHas = false
+                }
+            });
+            //update API 
+            if (isHas === false) {
+                axios.put(`http://5d08a7b5034e5000140106c4.mockapi.io/api/cartDetail/${idDetail}`, { ...cartDetailItem })
+            } else {
+                cartDetailItem = {
+                    idCard: idcart,
+                    idProduct: id,
+                    Price: this.state.productD.price,
+                    Amount: this.state.txtNo,
+                    Sum: (this.state.txtNo * this.state.productD.price)
+                }
+                axios.post(`http://5d08a7b5034e5000140106c4.mockapi.io/api/cartDetail`, { ...cartDetailItem })
+            }
+
+        }
     }
     render() {
         let infoDetailPro = this.state.productD
@@ -118,7 +164,7 @@ class decriptionPro extends Component {
                         <hr />
                         <div className="detail__content__info__action">
                             <div className="card-body__action">
-                                <div className="card-body__action__buy"onClick={() => this.addCart(infoDetailPro.id)}><a href="/">MUA NGAY</a></div>
+                                <div className="card-body__action__buy" onClick={() => this.addCart(infoDetailPro.id)}>MUA NGAY</div>
                                 <div className="card-body__action__seach"><a href="/"><img src="../../IMG/icon-search-ct.png" alt="" /></a></div>
                                 <div className="card-body__action__love"><a href="/"><img src="../../IMG/heart.png" alt="" /></a></div>
                             </div>
@@ -159,7 +205,10 @@ class decriptionPro extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return { listproHot: state.ProductReducer }
+    return {
+        listproHot: state.ProductReducer,
+        acountReducer: state.AcountReducer
+    }
 }
 
 export default connect(mapStateToProps)(decriptionPro);
