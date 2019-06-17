@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import Sidebar from '../sidebar'
 import RecordTable from './recordTable'
 import CartDetail from './cartDetail'
+import RecordUser from './recordUser'
 import axios from 'axios'
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { connect } from 'react-redux'
+import {fetchDataOder } from '../../../store/action/actionOder'
 
 
 class table extends Component {
@@ -13,7 +16,8 @@ class table extends Component {
             listOder: [],
             isHovering: false,
             listcartDetail: [],
-            listCartUser: []
+            listCartUser: [],
+            listUser: []
         }
     }
     handleMouseHover = async (id) => {
@@ -37,18 +41,14 @@ class table extends Component {
         };
     }
     async componentDidMount() {
-        let data = await axios.get('https://5c317daad18a50001463d41d.mockapi.io/api/oder')
-            .then(function (response) {
-                return response.data
-            })
         let listdata = await axios.get('http://5d08a7b5034e5000140106c4.mockapi.io/api/cartDetail')
             .then(function (response) {
                 return response.data
             })
-
         this.setState({
-            listOder: data,
-            listcartDetail: listdata
+            listOder: this.props.listproHot.listOder,
+            listcartDetail: this.props.listproHot.listCardDetail,
+            listUser : this.props.acountReducer.listUser
         })
     }
     render() {
@@ -56,6 +56,8 @@ class table extends Component {
         if (!listOder) listOder = []
         var listCartUser = this.state.listCartUser
         if (!listCartUser) listCartUser = []
+        var listUser = this.state.listUser
+        if (!listUser) listUser = []
         return (
             <div className="page-wrapper chiller-theme toggled">
                 <Sidebar></Sidebar>
@@ -110,15 +112,20 @@ class table extends Component {
                     <table className="table table-dark table-hover">
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th>idCart</th>
                                 <th>idUser</th>
-                                <th>Tổng tiền</th>
-                                <th>Ngày thanh toán</th>
+                                <th>email</th>
+                                <th>password</th>
+                                <th>name</th>
+                                <th>phone</th>
+                                <th>address</th>
+                                <th><Link to="/admin/addUser"><img  src={process.env.PUBLIC_URL + '/IMG/' +"baseline-add_circle-24px.svg"} alt="/"></img></Link></th>
+                               
                             </tr>
                         </thead>
                         <tbody>
-                            
+                        {
+                                listUser.map((value, key) => (<RecordUser key={key} idUser={value.id} email={value.email} password={value.password} name={value.name} phone={value.phone} address={value.address}></RecordUser>))
+                            }
                         </tbody>
                     </table>
                 </div>

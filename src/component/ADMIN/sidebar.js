@@ -1,7 +1,38 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import axios from 'axios'
+import { connect } from 'react-redux'
+
 class sidebar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isHovering: false,
+      dataCategories: []
+    }
+  }
+  async componentDidMount() {
+    let datacategories = await axios.get('http://5c317daad18a50001463d41d.mockapi.io/api/categories')
+      .then(function (response) {
+        return response.data
+      })
+
+    this.setState({
+      dataCategories: datacategories,
+    })
+  }
+  handleMouseHover = async () => {
+    this.setState(this.toggleHoverState);
+  }
+
+  toggleHoverState(state) {
+    return {
+      isHovering: !state.isHovering,
+    };
+  }
   render() {
+    var dataCategories = this.state.dataCategories
+    if (!dataCategories) dataCategories = []
     return (
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
@@ -89,27 +120,19 @@ class sidebar extends Component {
                 </div>
               </li>
               <li className="sidebar-dropdown">
-                <a href="/">
+                <a onClick={() => this.handleMouseHover()}>
                   <i className="far fa-gem" />
-                  <span>Components</span>
+                  <span>Sản phẩm</span>
                 </a>
                 <div className="sidebar-submenu">
                   <ul>
-                    <li>
-                      <a href="/">General</a>
-                    </li>
-                    <li>
-                      <a href="/">Panels</a>
-                    </li>
-                    <li>
-                      <a href="/">Tables</a>
-                    </li>
-                    <li>
-                      <a href="/">Icons</a>
-                    </li>
-                    <li>
-                      <a href="/">Forms</a>
-                    </li>
+                    {this.state.isHovering && (
+                      dataCategories.map((value, key) => (
+                        <li>
+                          <Link to={"/admin/product/" + value.id}>{value.nameCategory}</Link>
+                        </li>
+                      )))
+                    }
                   </ul>
                 </div>
               </li>
@@ -199,5 +222,12 @@ class sidebar extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    listproHot: state.ProductReducer,
+    acountReducer: state.AcountReducer,
+    localStorage: state.LocalStorage
+  }
+}
 
-export default sidebar;
+export default connect(mapStateToProps)(sidebar);

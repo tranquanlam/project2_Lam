@@ -6,27 +6,24 @@ import SaleProduct from '../home/element/salePro'
 import Contact from '../../common/contact/contact'
 import Headers from '../../common/header/header'
 import Nav from '../../common/nav/nav'
-import axios from 'axios'
 
-import { saveListCartDetail, saveListProduct } from '../../../store/action/action'
+import BestSell from './element/bestSell';
+import NewProduct from './element/newProduct'
 
 
 class home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ToYesNo: false
+            ToYesNo: false,
         }
     }
     async componentDidMount() {
-        var ProData = await axios.get('http://5d08a7b5034e5000140106c4.mockapi.io/api/products')
-        //đổ dữ liệu lên redux
-        this.props.saveListProduct(ProData.data)
-    }
 
+    }
     render() {
         return (
-            <div>
+           <div>
                 <Contact></Contact>
                 <Headers></Headers>
                 <Nav></Nav>
@@ -36,7 +33,7 @@ class home extends Component {
                 <div className="container-home">
                     <HighlighPro></HighlighPro>
                     <div className="container-home__titleSell">
-                        <div className="title__sell">
+                        <div cl assName="title__sell">
                             <p className="title__sell__p">Sản phẩm mua nhiều</p>
                             <hr className="title__sell__hr" />
                         </div>
@@ -52,78 +49,12 @@ class home extends Component {
                     <div className="container-home__sell">
                         <div className="container-home__sell__list">
                             <div className="container-home__sell__list__best">
-                                <div className="card">
-                                    <div className="row">
-                                        <div className="col-4"><img className="card-img" src="../../IMG/spx2-4.png" alt="" /></div>
-                                        <div className="col-8">
-                                            <div className="card-body">
-                                                <p className="card-title">Cây chân chim</p>
-                                                <div className="star"><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><i className="fa fa-star-half checked" aria-hidden="true"> </i></div>
-                                                <p className="card-text">250.000 đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card">
-                                    <div className="row">
-                                        <div className="col-4"><img className="card-img" src="../../IMG/spx2-5.png" alt="" /></div>
-                                        <div className="col-8">
-                                            <div className="card-body">
-                                                <p className="card-title">Cây dạ lam</p>
-                                                <div className="star"><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><i className="fa fa-star-half checked" aria-hidden="true"> </i></div>
-                                                <p className="card-text">250.000 đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card">
-                                    <div className="row">
-                                        <div className="col-4"><img className="card-img" src="../../IMG/spx2-15.png" alt="" /></div>
-                                        <div className="col-8">
-                                            <div className="card-body">
-                                                <p className="card-title">Cây danh dự</p>
-                                                <div className="star"><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><i className="fa fa-star-half checked" aria-hidden="true"> </i></div>
-                                                <p className="card-text">250.000 đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card">
-                                    <div className="row">
-                                        <div className="col-4"><img className="card-img" src="../../IMG/caydabupnho.png" alt="" /></div>
-                                        <div className="col-8">
-                                            <div className="card-body">
-                                                <p className="card-title">Cây đa búp nhỏ</p>
-                                                <div className="star"><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><i className="fa fa-star-half checked" aria-hidden="true"> </i></div>
-                                                <p className="card-text">250.000 đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card">
-                                    <div className="row">
-                                        <div className="col-4"><img className="card-img" src="../../IMG/spx2-11.png" alt="" /></div>
-                                        <div className="col-8">
-                                            <div className="card-body">
-                                                <p className="card-title">Cây cọ ta</p>
-                                                <div className="star"><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><i className="fa fa-star-half checked" aria-hidden="true"> </i></div>
-                                                <p className="card-text">250.000 đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card">
-                                    <div className="row">
-                                        <div className="col-4"><img className="card-img" src="../../IMG/spx2-6.png" alt="" /></div>
-                                        <div className="col-8">
-                                            <div className="card-body">
-                                                <p className="card-title">Cây dừa nhỏ</p>
-                                                <div className="star"><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><span className="fa fa-star checked" /><i className="fa fa-star-half checked" aria-hidden="true"> </i></div>
-                                                <p className="card-text">250.000 đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <BestSell></BestSell>
+                                <BestSell></BestSell>
+                                <BestSell></BestSell>
+                                <BestSell></BestSell>
+                                <BestSell></BestSell>
+                                <BestSell></BestSell>
                             </div>
                             <SaleProduct></SaleProduct>
                         </div>
@@ -136,119 +67,14 @@ class home extends Component {
                         </div>
                     </div>
                     <div className="container-home__new" id="title">
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/spx2-15.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây danh dự</h5
-                                ><div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true"></i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/spx2-7.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây xương rồng</h5>
-                                <div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true">
-                                    </i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/spx2-12.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây dạ lam</h5>
-                                <div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true"> </i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/spx2-11.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây dứa nhỏ</h5>
-                                <div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true"> </i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/spx2-15.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây danh dự</h5>
-                                <div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true"> </i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/spx2-3.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây đa gốc nhỏ</h5>
-                                <div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true"> </i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/caydabupnho.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây đa búp nhỏ</h5>
-                                <div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true"> </i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img className="card-img-top" src="../../IMG/spx2-12.png" alt="" />
-                            <div className="card-body">
-                                <h5 className="card-title">Cây dạ lam</h5>
-                                <div className="star">
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <span className="fa fa-star checked" />
-                                    <i className="fa fa-star-half checked" aria-hidden="true"> </i>
-                                </div>
-                                <p className="card-text">250000 đ <strike>250.000 đ</strike></p>
-                            </div>
-                        </div>
+                        <NewProduct></NewProduct>
+                        <NewProduct></NewProduct>
+                        <NewProduct></NewProduct>
+                        <NewProduct></NewProduct>
+                        <NewProduct></NewProduct>
+                        <NewProduct></NewProduct>
+                        <NewProduct></NewProduct>
+                        <NewProduct></NewProduct>
                     </div>
                     <div className="container-home__title__info">
                         <div className="title__info">
@@ -288,12 +114,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        saveListCartDetail: () => {
-            dispatch(saveListCartDetail())
-        },
-        saveListProduct: (listPro) => {
-            dispatch(saveListProduct(listPro))
-        }
+
     }
 }
 

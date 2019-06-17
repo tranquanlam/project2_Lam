@@ -5,7 +5,8 @@ var product = {
   amount: [],
   name: "",
   id: 0,
-  user: ''
+  user: '',
+  listUser: []
 }
 export default function (state = product, action) {
   switch (action.type) {
@@ -13,6 +14,11 @@ export default function (state = product, action) {
       return saveClick(state, action)
     case UPDATE_USER:
       return updateUser(state, action)
+    case 'FETCHING_DATA_USER':
+      return{
+        ...state,
+        listUser: action.data
+    }
     default:
       return state
   }

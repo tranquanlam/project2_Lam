@@ -6,12 +6,12 @@ import {
     SAVE_LIST_CART_DETAIL,
     SAVE_ADD_CART_LOCALSTORAGE,
     DETELE_ITEM_LOCALSTORAGE,
-    SAVE_LIST_PRODUCT,
     UPDATE_USER,
     FIND_CATEGORY,
     DETELE_ITEM_API,
     SAVE_PAYMENT_APT
 } from './actionType'
+import axios from 'axios'
 
 export function savelogin(name, id,user) {
     return { type: CLICK_SAVE_LOGIN, name: name, id: id,user }
@@ -37,9 +37,6 @@ export function saveAddCartLocalStorage (item,amount,idUser) {
 export function deteleItemCard (idPro,idUser) {
     return { type:DETELE_ITEM_LOCALSTORAGE ,idPro,idUser}
 }
-export function saveListProduct (listPro) {
-    return { type:SAVE_LIST_PRODUCT, listPro}
-}
 export function findcategory (data,cate){
     return { type:FIND_CATEGORY, data,cate}
 }
@@ -49,3 +46,31 @@ export function deteleitemAPI(idPro,idUser){
 export function savePaymentAPI(idUser,sum){
     return {type: SAVE_PAYMENT_APT,idUser,sum}
 }
+
+export function getData() {
+    return {
+      type: 'FETCHING_DATA'
+    }
+  }
+  
+const apiUrl = 'http://5d08a7b5034e5000140106c4.mockapi.io/api/products';
+
+export const fetchData = (data) => {
+  return {
+    type: 'DATA_PRODUCT_THUNK',
+    data
+  }
+};
+
+export const fetchGithubData = () => {
+  return (dispatch) => {
+    dispatch(getData())
+    return axios.get(apiUrl)
+      .then(response => {
+        dispatch(fetchData(response.data))
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+};

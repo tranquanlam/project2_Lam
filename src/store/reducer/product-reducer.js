@@ -3,7 +3,6 @@ import {
     GET_REDIRECT_CART,
     SAVE_LIST_CART,
     SAVE_LIST_CART_DETAIL,
-    SAVE_LIST_PRODUCT,
     FIND_CATEGORY,
     DETELE_ITEM_API,
     SAVE_PAYMENT_APT
@@ -17,7 +16,9 @@ const initialState = {
     listCardUser: [],
     listCardDetail: [],
     listProducts: [],
-    differentProduct: []
+    differentProduct: [],
+    isFetching: false,
+    listOder: []
 }
 
 export default (state = initialState, action) => {
@@ -38,10 +39,6 @@ export default (state = initialState, action) => {
         case SAVE_LIST_CART_DETAIL:
             state = { ...state, listCardDetail: action.listCardDetail }
             return state
-        //đổ dữ liệu lên redux
-        case SAVE_LIST_PRODUCT:
-            state = { ...state, listProducts: action.listPro }
-            return state
         case FIND_CATEGORY:
             return findcategory(state, action)
         //xóa phần tử giỏ hàng trên API
@@ -49,8 +46,27 @@ export default (state = initialState, action) => {
             return deleteItemApi(state, action)
         //lưu lại history mua hàng
         case SAVE_PAYMENT_APT:
-
             return saveHistoryPayment(state, action)
+        //save list product by thunk
+        case 'FETCHING_DATA_ODER_DETAIL':
+            return {
+                ...state,
+                listCardDetail: action.data
+            }
+        case 'FETCHING_DATA_ODER':
+            return {
+                ...state,
+                listOder: action.data
+            }
+        case 'FETCHING_DATA':
+            return {
+                ...state,
+                listProducts: [],
+                isFetching: true
+            }
+        case 'DATA_PRODUCT_THUNK':
+            state = { ...state, listProducts: action.data, isFetching: false, }
+            return state
         default:
             return state
     }
@@ -107,8 +123,8 @@ async function saveHistoryPayment(state, action) {
             return response.data
         })
     listdata.forEach(element => {
-        console.log(element.idUser + "/"+ action.idUser);
-        
+        console.log(element.idUser + "/" + action.idUser);
+
         if (parseInt(element.idUser) === parseInt(action.idUser)) {
             idcart = element.idCart
         }

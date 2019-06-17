@@ -54,7 +54,9 @@ class chart extends Component {
             <div className="page-wrapper chiller-theme toggled">
                 <Sidebar></Sidebar>
                 <main className="page-content">
+                    <h3>Tỉ lệ số lượng nhân viên </h3>
                     <Doughnut data={data} />
+                    <h3>Doanh Thu hàng tháng </h3>
                     <Line data={data1} />
                 </main>
             </div>

@@ -9,7 +9,7 @@ class salePro extends Component {
    
     render() {
         const options = {
-            startPosition :5,
+            startPosition :3,
             items: 3,
             rewind: true,
             margin: 30,
@@ -17,7 +17,8 @@ class salePro extends Component {
             responsive :false,
             dots : false,
             autoplay: true,
-            loop :true
+            loop :true,
+            stageElement :'div'
         };
         return (
             <div className="container-home__sell__list__sale" id="container-home__sell__list__sale">
@@ -27,7 +28,7 @@ class salePro extends Component {
                 >
                     {
                         this.props.listproHot.listProducts.map((value,key)=>(
-                            <CardSale namePro={value.productName} imagePro={value.imageproduct}></CardSale>
+                            <CardSale key={key} namePro={value.productName} imagePro={value.imageproduct}></CardSale>
                         ))
                     }
                 </OwlCarousel>
@@ -37,7 +38,7 @@ class salePro extends Component {
                 >
                    {
                         this.props.listproHot.listProducts.map((value,key)=>(
-                            <CardSale namePro={value.productName} imagePro={value.imageproduct}></CardSale>
+                            <CardSale key={key} namePro={value.productName} imagePro={value.imageproduct}></CardSale>
                         ))
                     }
                 </OwlCarousel>
