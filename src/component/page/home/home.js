@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import Bannel from '../home/element/banner'
+import { connect } from 'react-redux'
 import HighlighPro from '../home/element/highlightsPro'
 import SaleProduct from '../home/element/salePro'
+import Redirect from 'react-router-dom/Redirect'
+
 
 class home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ToYesNo: false
+        }
+    }
     render() {
+        if(this.props.listproHot.ToYesNoCart === true){
+            return <Redirect to="/cart"></Redirect>
+        }
         return (
             <div>
                 <header>
@@ -258,5 +270,7 @@ class home extends Component {
         );
     }
 }
-
-export default home;
+const mapStateToProps = (state) => {
+    return { listproHot: state.ProductReducer }
+}
+export default connect(mapStateToProps)(home)

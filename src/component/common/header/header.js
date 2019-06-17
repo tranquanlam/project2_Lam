@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
 import ImgPanner1 from '../../IMG/hoa-panner1.png'
 import ImgPanner2 from '../../IMG/hoa-panner2.png'
+import { connect } from 'react-redux'
 import Nav from '../nav/nav'
-export default class header extends Component {
+import {ToPageCart} from '../../../store/action/action'
+
+class header extends Component {
+    
+    toCartPage = () =>{
+        this.props.RedirecCard()
+    }
     render() {
+       
         return (
             <header>
                     <div className="action " >
@@ -24,13 +32,24 @@ export default class header extends Component {
                                 </div>
                             </li>
                             <li className="li-4">
-                                <p className="li-4-p"> 0 Sản phẩm &nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../IMG/icon-Gio-Hang.png" alt="" /></p>
+                                <p className="li-4-p"> 0 Sản phẩm &nbsp;&nbsp;&nbsp;&nbsp;  <img src="../../../IMG/icon-Gio-Hang.png" alt="" onClick={()=>this.toCartPage()}/> </p>
                             </li>
                         </ul>
                         <Nav></Nav>
                     </div>
-                    
                 </header>
-        )
+        );
     }
 }
+const mapStateToProps = (state) => {
+    return { listproHot: state.ProductReducer }
+}
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        RedirecCard : () =>{
+            dispatch(ToPageCart())
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (header);
