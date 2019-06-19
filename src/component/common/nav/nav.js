@@ -38,5 +38,4 @@ class nav extends Component {
         );
     }
 }
-
 export default nav;
