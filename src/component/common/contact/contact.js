@@ -20,13 +20,8 @@ class contact extends Component {
                     <li className="list-inline-item "><a href="/"><img src={Imgtwier} alt="" /></a></li>
                     <li className="list-inline-item "><a href="/"><img src={Imgt} alt="" /></a></li>
                     <li className="list-inline-item "><a href="/"><img src={Imgv} alt="" /></a></li>
-                    <li className="list-inline-item col-3 offset-md-1"><Link  to="/login"><img src={ImgSigin} alt="" />Login</Link></li>
+                    <li className="list-inline-item col-3 offset-md-1"><Link  to="/login"><img src={ImgLogin} alt="" />Login</Link></li>
                     <li className="list-inline-item col-3"><Link  to="/login"><img src={ImgSigin} alt="" />Login</Link></li>
-                   
-                    <li>
-                        
-                    </li>
-                    
                 </ul>
             </div>
         );
