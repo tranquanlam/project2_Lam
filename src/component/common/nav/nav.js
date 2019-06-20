@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import ItemNav from './iemtNav'
-
+import { connect } from 'react-redux';
 
 class nav extends Component {
+    constructor(props){
+        super(props);
+        this.state ={
+            userName : this.props.dbPro.name
+        }
+    }
     render() {
+        console.log(this.state.userName);
+        
         return (
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
                 <a className="fontnavbar navbar-brand js-scroll-trigger" href="/">
-                    <img alt="img" className="rounded-circle img-thumbnail imguser"  id="logo" src="https://scontent.fdad1-1.fna.fbcdn.net/v/t1.0-9/21616217_1951538581785407_7931691341819326103_n.jpg?_nc_cat=102&_nc_oc=AQmVJXGSJmINvDRFWXYsLDBb9828_8gVMZk9NTvdMnWT8OjR5c5UuM5MbOjATy24VuA&_nc_ht=scontent.fdad1-1.fna&oh=6dbcc10378dee5eed83492b2e524e2c7&oe=5D803D6D"  />   Xin chào {this.props.txtemail}
+                    <img alt="img" className="rounded-circle img-thumbnail imguser"  id="logo" src="https://scontent.fdad1-1.fna.fbcdn.net/v/t1.0-9/21616217_1951538581785407_7931691341819326103_n.jpg?_nc_cat=102&_nc_oc=AQmVJXGSJmINvDRFWXYsLDBb9828_8gVMZk9NTvdMnWT8OjR5c5UuM5MbOjATy24VuA&_nc_ht=scontent.fdad1-1.fna&oh=6dbcc10378dee5eed83492b2e524e2c7&oe=5D803D6D"  />   Xin chào {this.props.dbPro.name}
                 </a>
                 <ul className="navbar-nav">
                     <ItemNav title={"TRANG CHỦ"}></ItemNav>
@@ -39,4 +47,13 @@ class nav extends Component {
     }
 }
 
-export default nav;
+const mapStateToProps = (state) => {
+    return { dbPro: state.AcountReducer }
+}
+
+const mapDispatchToProps = {
+    
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(nav)
