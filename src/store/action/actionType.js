@@ -1,1 +1,2 @@
 export const CLICK_SAVE_LOGIN = 'CLICK_SAVE_LOGIN';
+export const LOAD_HOT_PRODUCT = 'LOAD_HOT_PRODUCT';
