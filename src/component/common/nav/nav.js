@@ -11,7 +11,6 @@ class nav extends Component {
     }
     render() {
         console.log(this.state.userName);
-        
         return (
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
                 <a className="fontnavbar navbar-brand js-scroll-trigger" href="/">

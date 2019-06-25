@@ -508,3 +508,289 @@ header .banner .text .titleShop {
   pointer-events: none;
 }
 /*# sourceMappingURL=headerBackgroud.css.map */
+/*detail*/
+.content-detail {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
+  -ms-grid-rows: auto auto auto;
+      grid-template-rows: auto auto auto;
+  grid-gap: 20px;
+  margin-left: 100px;
+}
+
+.content-detail .checked {
+  color: yellow;
+}
+
+.content-detail .addressLocal {
+  margin-top: 19px;
+  height: 63px;
+}
+
+.content-detail .addressLocal .addressLocal__a {
+  color: #818181;
+}
+
+.content-detail .addressLocal .addressLocal__a1 {
+  color: #3fb871;
+}
+
+.content-detail .detail {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
+  -ms-grid-rows: auto auto;
+      grid-template-rows: auto auto;
+  grid-gap: 20px;
+}
+
+.content-detail .detail__content {
+  margin-bottom: 50px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 30% 70%;
+      grid-template-columns: 30% 70%;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  grid-gap: 30px;
+}
+
+.content-detail .detail__content__container__mySlides {
+  margin-bottom: 20px;
+}
+
+.content-detail .detail__content__info__title p {
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+.content-detail .detail__content__info__title .price {
+  color: red;
+}
+
+.content-detail .detail__content__info__decription {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #818181;
+}
+
+.content-detail .detail__content__info hr {
+  padding: 5px;
+}
+
+.content-detail .detail__content__info .card-body__action {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 146px 44px 44px;
+      grid-template-columns: 146px 44px 44px;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  grid-gap: 20px;
+}
+
+.content-detail .detail__content__info .card-body__action__buy {
+  background-color: #3fb871;
+  color: white;
+  border-radius: 50px;
+  width: 146px;
+  height: 44px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.content-detail .detail__content__info .card-body__action__buy a {
+  color: white;
+}
+
+.content-detail .detail__content__info .card-body__action__seach, .content-detail .detail__content__info .card-body__action__love {
+  height: 44px;
+  width: 44px;
+  border-radius: 50px;
+  border: 1px solid;
+  border-color: #6b6969;
+  text-align: center;
+}
+
+.content-detail .detail__content__info .card-body__action__seach img, .content-detail .detail__content__info .card-body__action__love img {
+  padding-top: 13px;
+}
+
+.content-detail .detail__content__info .card-body__action__love img {
+  padding-top: 13px;
+}
+
+.content-detail .detail__source .tab-content {
+  border: 1px solid #d1cdcd;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #818181;
+  padding: 20px;
+}
+
+.content-detail .different-product-title p {
+  display: inline-block;
+  color: #54c081;
+  font-weight: bold;
+  height: 40px;
+  border-bottom: 3px solid #54c081;
+  margin-bottom: 0rem;
+}
+
+.content-detail .different-product-title hr {
+  padding: 1px;
+  margin-top: 0rem;
+  margin-bottom: 40px;
+}
+
+.content-detail .different-product {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto auto;
+      grid-template-columns: auto auto auto auto;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  grid-gap: 20px;
+  margin-bottom: 100px;
+}
+/*# sourceMappingURL=detail.css.map */
+/* cart */
+.container-tableBK {
+  margin-left: 100px;
+}
+
+.container-tableBK .addressLocal {
+  margin-top: 19px;
+  height: 63px;
+}
+
+.container-tableBK .addressLocal .addressLocal__a {
+  color: #818181;
+}
+
+.container-tableBK .addressLocal .addressLocal__a1 {
+  color: #3fb871;
+}
+
+.container-tableBK .title {
+  color: #68ba8f;
+  font-weight: bold;
+  margin-bottom: 70px;
+  font-size: 21px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-tableBK .Table {
+  color: #68ba8f;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-tableBK .Table #basket td,
+.container-tableBK .Table #basket th {
+  border: 1px solid #ddd;
+  padding-left: 18px;
+  padding-right: 18px;
+  height: 47px;
+}
+
+.container-tableBK .Table #basket th {
+  text-align: center;
+  background-color: #3fb871;
+  color: white;
+  font-weight: 100;
+}
+
+.container-tableBK .Table #basket td {
+  padding: 18px;
+}
+
+.container-tableBK .Table #basket td .img-product {
+  width: 154px;
+  height: 154px;
+}
+
+.container-tableBK .Table #basket .number p {
+  text-align: center;
+  margin-bottom: 0px;
+  padding-left: 54px;
+  padding-right: 54px;
+}
+
+.container-tableBK .Table #basket .price p {
+  text-align: center;
+  margin-bottom: 0px;
+  width: 120px;
+}
+
+.container-tableBK .Table #basket .price-total p {
+  text-align: center;
+  margin-bottom: 0px;
+  width: 200px;
+}
+
+.container-tableBK .Table #basket .cancel {
+  text-align: center;
+  margin-bottom: 0px;
+  padding-left: 54px;
+  padding-right: 54px;
+}
+
+.container-tableBK .Table #basket .name-product {
+  text-align: center;
+  margin-bottom: 0px;
+  padding-left: 54px;
+  padding-right: 54px;
+}
+
+.container-tableBK .Table__action {
+  width: 1110px;
+  text-align: right;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-tableBK .Table__action__cancel, .container-tableBK .Table__action__go {
+  display: inline-block;
+  border-radius: 30px;
+  height: 47px;
+  width: 150px;
+  border: 1px solid;
+  text-align: center;
+  padding-top: 11px;
+}
+
+.container-tableBK .Table__action__go {
+  margin-left: 20px;
+  color: white;
+  background: #3fb871;
+}
+
+.container-tableBK .Table__pay {
+  width: 682px;
+  margin-left: 457px;
+  margin-bottom: 100px;
+}
+
+.container-tableBK .Table__pay table th,
+.container-tableBK .Table__pay td {
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  padding-left: 90px;
+  padding-right: 90px;
+  height: 90px;
+}
+
+.container-tableBK .Table__pay .total {
+  background-color: #3fb871;
+  color: white;
+}
+
+.container-tableBK .Table__pay .total td {
+  font-size: 17px;
+}
+/*# sourceMappingURL=basket.css.map */
