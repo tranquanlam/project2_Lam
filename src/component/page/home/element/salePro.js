@@ -3,16 +3,21 @@ import CardSale from './hotPro/cardsale'
 import OwlCarousel from 'react-owl-carousel2';
 import './hotPro/owl.theme.default.css';
 import './hotPro/style.css';
+import { connect } from 'react-redux';
 
 class salePro extends Component {
    
     render() {
         const options = {
+            startPosition :5,
             items: 3,
+            rewind: true,
             margin: 30,
             autoWidth: false,
             responsive :false,
-            dots : false
+            dots : false,
+            autoplay: true,
+            loop :true
         };
         return (
             <div className="container-home__sell__list__sale" id="container-home__sell__list__sale">
@@ -20,27 +25,27 @@ class salePro extends Component {
                     ref="car"
                     options={options}
                 >
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
+                    {
+                        this.props.listproHot.listProducts.map((value,key)=>(
+                            <CardSale namePro={value.productName} imagePro={value.imageproduct}></CardSale>
+                        ))
+                    }
                 </OwlCarousel>
                 <OwlCarousel
                     ref="car"
                     options={options}
                 >
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
-                    <CardSale></CardSale>
+                   {
+                        this.props.listproHot.listProducts.map((value,key)=>(
+                            <CardSale namePro={value.productName} imagePro={value.imageproduct}></CardSale>
+                        ))
+                    }
                 </OwlCarousel>
             </div>
         );
     }
 }
-
-export default salePro;
+const mapStateToProps = (state) => {
+    return { listproHot: state.ProductReducer }
+}
+export default connect(mapStateToProps) (salePro);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { connect } from 'react-redux'
 import OwlCarousel from 'react-owl-carousel2';
+import { saveAddCartLocalStorage, findcategory, saveListCartDetail } from '../../../../store/action/action'
 
 class decriptionPro extends Component {
     constructor(props) {
@@ -9,16 +10,20 @@ class decriptionPro extends Component {
         this.state = {
             productD: '',
             category: 1,
+            listCartDetail: [],
             differentProduct: [],
             txtNo: 0
         }
         this.handleChange = this.handleChange.bind(this);
     }
     async componentDidMount() {
+        //lấy danh sách product
         let data = await axios.get('http://5d08a7b5034e5000140106c4.mockapi.io/api/products')
             .then(function (response) {
                 return response.data
             })
+
+        //lấy sản phẩm và loại sản phẩm show lên detail
         data.forEach(element => {
             if (element.id === this.props.listproHot.id) {
                 this.setState({
@@ -27,13 +32,11 @@ class decriptionPro extends Component {
                 })
             }
         });
-        data.forEach(element => {
-            if (element.catagory === this.state.category) {
-                this.setState({
-                    differentProduct: [...this.state.differentProduct, element]
-                })
-            }
-        });
+        //tìm những sản phẩm có cùng category
+        this.props.findCategory(data, this.state.category)
+        this.setState({
+            differentProduct: this.props.listproHot.differentProduct
+        })
     }
     handleChange = (event) => {
         const target = event.target;
@@ -45,7 +48,6 @@ class decriptionPro extends Component {
         });
     }
     addProduct = (id) => {
-        console.log(id);
         let numb = this.state.txtNo + 1;
         this.setState({
             txtNo: numb
@@ -53,15 +55,64 @@ class decriptionPro extends Component {
     }
     reductionProduct = (id) => {
         if (this.state.txtNo > 0) {
-            console.log(id);
             let numb = this.state.txtNo - 1;
             this.setState({
                 txtNo: numb
             })
         }
     }
-    addCart = (id) =>{
-        
+    addCart = async (id) => {
+        //Neu login thi moi cho them du lieu vao cart Detail
+        if (this.props.acountReducer.name !== "") {
+            //XỬ LÝ TRÊN LOCALSTORGE
+            this.props.saveAddCartLocalStorage(this.state.productD, this.state.txtNo, this.props.acountReducer.id);
+
+            //XỬ LÝ TRÊN API VỚI GIỎ HÀNG        
+            //lay id card trong store để mua them sản phẩm
+            var idcart
+            this.props.listproHot.listCardUser.forEach(element => {
+                console.log(element.idUser + "" + this.props.acountReducer.id);
+                
+                if (parseInt(element.idUser) === parseInt(this.props.acountReducer.id)) {
+                    idcart = element.idCart
+                }
+            });
+            console.log(idcart);
+            // neu id card và id pro đã có trong API thì chỉ cần cộng thêm vào ( to action redux)
+            var cartDetailItem
+            var idDetail
+            var isHas = true
+            let dataCartDetail = await axios.get('http://5d08a7b5034e5000140106c4.mockapi.io/api/cartDetail')
+                .then(function (response) {
+                    return response.data
+                })
+            dataCartDetail.forEach(element => {
+                if (parseInt(element.idCard) === parseInt(idcart) && parseInt(element.idProduct) === parseInt(id)) {
+                    cartDetailItem = {
+                        idCard: idcart,
+                        idProduct: id,
+                        Price: this.state.productD.price,
+                        Amount: this.state.txtNo,
+                        Sum: (this.state.txtNo * this.state.productD.price)
+                    }
+                    idDetail = element.id
+                    isHas = false
+                }
+            });
+            //update API 
+            if (isHas === false) {
+                axios.put(`http://5d08a7b5034e5000140106c4.mockapi.io/api/cartDetail/${idDetail}`, { ...cartDetailItem })
+            } else {
+                cartDetailItem = {
+                    idCard: idcart,
+                    idProduct: id,
+                    Price: this.state.productD.price,
+                    Amount: this.state.txtNo,
+                    Sum: (this.state.txtNo * this.state.productD.price)
+                }
+                axios.post(`http://5d08a7b5034e5000140106c4.mockapi.io/api/cartDetail`, { ...cartDetailItem })
+            }
+        }
     }
     render() {
         let infoDetailPro = this.state.productD
@@ -118,7 +169,7 @@ class decriptionPro extends Component {
                         <hr />
                         <div className="detail__content__info__action">
                             <div className="card-body__action">
-                                <div className="card-body__action__buy"onClick={() => this.addCart(infoDetailPro.id)}><a href="/">MUA NGAY</a></div>
+                                <div className="card-body__action__buy" onClick={() => this.addCart(infoDetailPro.id)}>MUA NGAY</div>
                                 <div className="card-body__action__seach"><a href="/"><img src="../../IMG/icon-search-ct.png" alt="" /></a></div>
                                 <div className="card-body__action__love"><a href="/"><img src="../../IMG/heart.png" alt="" /></a></div>
                             </div>
@@ -159,7 +210,24 @@ class decriptionPro extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return { listproHot: state.ProductReducer }
+    return {
+        listproHot: state.ProductReducer,
+        acountReducer: state.AcountReducer,
+        localStorage: state.LocalStorage
+    }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        saveAddCartLocalStorage: (item, amount, idUser) => {
+            dispatch(saveAddCartLocalStorage(item, amount, idUser))
+        },
+        findCategory: (data, type) => {
+            dispatch(findcategory(data, type))
+        },
+        saveListCartDetail: (listCardDetail) => {
+            dispatch(saveListCartDetail(listCardDetail))
+        }
 
-export default connect(mapStateToProps)(decriptionPro);
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(decriptionPro);

@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 class cardsale extends Component {
     render() {
         return (
-            <div className="" >
+            <div className="card" >
                 <div className="col-item">
                     <div className="photo">
-                        <img src="../../IMG/spx2-6.png" className="img-responsive" alt="" />
+                        <img src={process.env.PUBLIC_URL + '/IMG/' + this.props.imagePro} className="img-responsive" alt="" />
                     </div>
                     <div className="info">
                         <div className="row">
                             <div className="card-body">
-                                <h5 className="card-title">Cây chân chim</h5>
+                                <h5 className="card-title">{this.props.namePro}</h5>
                                 <div className="star">
                                     <span className="fa fa-star checked" />
                                     <span className="fa fa-star checked" />

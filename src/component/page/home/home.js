@@ -3,7 +3,12 @@ import Bannel from '../home/element/banner'
 import { connect } from 'react-redux'
 import HighlighPro from '../home/element/highlightsPro'
 import SaleProduct from '../home/element/salePro'
-import Redirect from 'react-router-dom/Redirect'
+import Contact from '../../common/contact/contact'
+import Headers from '../../common/header/header'
+import Nav from '../../common/nav/nav'
+import axios from 'axios'
+
+import { saveListCartDetail, saveListProduct } from '../../../store/action/action'
 
 
 class home extends Component {
@@ -13,12 +18,18 @@ class home extends Component {
             ToYesNo: false
         }
     }
+    async componentDidMount() {
+        var ProData = await axios.get('http://5d08a7b5034e5000140106c4.mockapi.io/api/products')
+        //đổ dữ liệu lên redux
+        this.props.saveListProduct(ProData.data)
+    }
+
     render() {
-        if(this.props.listproHot.ToYesNoCart === true){
-            return <Redirect to="/cart"></Redirect>
-        }
         return (
             <div>
+                <Contact></Contact>
+                <Headers></Headers>
+                <Nav></Nav>
                 <header>
                     <Bannel></Bannel>
                 </header>
@@ -273,4 +284,17 @@ class home extends Component {
 const mapStateToProps = (state) => {
     return { listproHot: state.ProductReducer }
 }
-export default connect(mapStateToProps)(home)
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        saveListCartDetail: () => {
+            dispatch(saveListCartDetail())
+        },
+        saveListProduct: (listPro) => {
+            dispatch(saveListProduct(listPro))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(home)

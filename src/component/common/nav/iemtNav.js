@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class iemtNav extends Component {
     render() {
         return (
             <li className="nav-item">
-                <a className="nav-link" href="/">{this.props.title}</a>
+                <Link className="nav-link" to = "/">{this.props.title} </Link>
             </li>
         );
     }
