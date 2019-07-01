@@ -59,6 +59,8 @@
 .no-js .owl-carousel,
 .owl-carousel.owl-loaded {
   display: block;
+  margin-bottom: 30px;
+
 }
 .owl-carousel .owl-dot,
 .owl-carousel .owl-nav .owl-next,

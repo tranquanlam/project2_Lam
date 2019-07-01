@@ -44,7 +44,7 @@ class highlightsPro extends Component {
                 }
                 return hostPro;
             })
-        //  console.log(ProData)
+        
         this.setState({
             listproHot: ProData,
             hot0: ProData[0].imageproduct,

@@ -5,20 +5,20 @@ class productCart extends Component {
         return (
             <tr>
                 <td>
-                    <img className="img-product" src="../../IMG/spx2-4.png" alt="/" />
+                    <img className="img-product" src={process.env.PUBLIC_URL + '/IMG/' + this.props.imageItem} alt="/" />
                 </td>
-                <td className="name-product">Cây chân chim</td>
+                <td className="name-product">{this.props.NameItem}</td>
                 <td className="price">
-                    <p>250000 đ </p>
+                    <p>{this.props.priceItem} đ </p>
                 </td>
                 <td className="number">
-                    <p>11</p>
+                    <p>{this.props.amountItem}</p>
                 </td>
                 <td className="price-total">
-                    <p>2750000</p>
+                    <p>{this.props.Total} đ</p>
                 </td>
                 <td id="detele" producid={1} className="cancel">
-                    <img src="../../IMG/Cancel.png" alt="/" />
+                    <img src="../../IMG/Cancel.png" alt="/"  onClick={this.props.detele}/>
                 </td>
             </tr>
           
